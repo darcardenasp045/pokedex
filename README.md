@@ -18,7 +18,7 @@ La Pokédex es una aplicación web que te permite explorar y obtener informació
 
 ## ENLACE ⬇️⬇️⬇️⬇️⬇️⬇️
 
-  pokedex-adkj90ps8-darcardenasp045.vercel.app
+  https://pokedex-gules-five.vercel.app/
 
 ## Tecnologías Utilizadas
 
