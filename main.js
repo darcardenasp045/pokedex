@@ -17,36 +17,53 @@ const generateHtml = (data) => {
     
     const updatePokemonList = (filteredPokemons) => {
         const listContainer = document.querySelector('.list');
-        const detallePokemon = document.querySelector('.detalle')
         listContainer.innerHTML = ''; // Limpia la lista existente
+    
         filteredPokemons.forEach(poke => {
-        let node = create('div')
-        let name = create('span')
-        let img = create('img')
-        node.className = 'pokemon'
-        node.id= "pok"
-        img.className = 'images'
-        name.innerHTML = 'Name: ' + poke.name.charAt(0).toUpperCase() + poke.name.substring(1)
-      
-        
-
-        fetch(poke.url)
-            .then((dat) => dat.json())
-            .then((pokemon) => {
-                let ID = create('span')
-                ID.className = 'id'
-                ID.innerHTML = '#' + pokemon.id
-                let type = create('span')
-                type.className = 'type'
-                let m = typeset(pokemon.types)
-                type.innerHTML = m
-                append(node, img)
-                append(node, ID)
-                append(node, name)
-                append(node, type)
-                img.src = pokemon.sprites.front_default
-            })
-        document.querySelector('.list').appendChild(node)
+            let node = create('div');
+            let name = create('span');
+            let img = create('img');
+            node.className = 'pokemon';
+            img.className = 'images';
+            name.innerHTML = 'Name: ' + poke.name.charAt(0).toUpperCase() + poke.name.substring(1);
+    
+            fetch(poke.url)
+                .then((dat) => dat.json())
+                .then((pokemon) => {
+                    let ID = create('span');
+                    ID.className = 'id';
+                    ID.innerHTML = '#' + pokemon.id;
+                    let type = create('span');
+                    type.className = 'type';
+                    let m = typeset(pokemon.types);
+                    type.innerHTML = m;
+    
+                    // Crear una nueva imagen para realizar el recorte
+                    let croppedImg = new Image();
+                    croppedImg.crossOrigin = 'Anonymous'; // Habilitar CORS
+                    croppedImg.onload = function() {
+                        const margenRecorte = 20; // Puedes ajustar este valor según tu preferencia
+    
+                        // Crear un canvas para recortar la imagen
+                        let canvas = document.createElement('canvas');
+                        canvas.width = img.width - 2 * margenRecorte;
+                        canvas.height = img.height - 2 * margenRecorte;
+                        let ctx = canvas.getContext('2d');
+                        ctx.drawImage(croppedImg, margenRecorte, margenRecorte, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+    
+                        // Establecer la imagen recortada como fuente de la imagen
+                        img.src = canvas.toDataURL();
+                    };
+    
+                    // Cargar la imagen original en la imagen recortada
+                    croppedImg.src = pokemon.sprites.front_default;
+                    append(node, img);
+                    append(node, ID);
+                    append(node, name);
+                    append(node, type);
+                });
+    
+            document.querySelector('.list').appendChild(node);
         
         
         
@@ -79,7 +96,8 @@ const generateHtml = (data) => {
             // console.log(x.textContent)
             switch (x.textContent) {
                 case 'Grass': {
-                    x.style.backgroundColor = '#9bcc50'; break;
+                    x.style.backgroundColor = '#9bcc50'; 
+                    break;
                 }
                 case 'Poison': {
                     x.style.backgroundColor = '#b97fc9';
