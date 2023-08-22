@@ -105,12 +105,17 @@ html,body{
     
     
 }
-footer {
-    position:absolute;
-    right:20px;
-    bottom:20px;
-    color:#365fab
+
+footer p{
+    display: flex;
+    position: sticky;
+    right: 20px;
+    bottom: 20px;
+    justify-content: flex-end;
+    align-items:flex-end;
+    color:#365fab;
 }
 strong{
     color :  #ffcc01;
 }
+
