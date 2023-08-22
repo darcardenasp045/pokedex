@@ -13,6 +13,9 @@ html,body{
     position:relative;
     font-family:'Gochi Hand', cursive;
 }
+.title{
+    margin-top: 30px;
+}
 .container{
     width: 80%;
     height: 100%;
