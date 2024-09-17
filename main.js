@@ -5,9 +5,12 @@ let apiurl = 'https://pokeapi.co/api/v2/pokemon?limit=898&offset=0'
 fetch(apiurl)
     .then((data) => data.json())
     .then((pokemons) => generateHtml(pokemons))
+    
+   
 
 const generateHtml = (data) => {
     console.log(data)
+    
     const label = document.getElementById("searchBox")
     label.addEventListener('input', () => {
         const searchTerm = searchBox.value.toLowerCase();
@@ -42,7 +45,7 @@ const generateHtml = (data) => {
                     let croppedImg = new Image();
                     croppedImg.crossOrigin = 'Anonymous'; // Habilitar CORS
                     croppedImg.onload = function() {
-                        const margenRecorte = 20; // Puedes ajustar este valor según tu preferencia
+                        const margenRecorte = 24; // Puedes ajustar este valor según tu preferencia
     
                         // Crear un canvas para recortar la imagen
                         let canvas = document.createElement('canvas');
